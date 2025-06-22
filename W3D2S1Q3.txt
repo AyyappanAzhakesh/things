@@ -1,0 +1,127 @@
+W3D2S1Q3
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            background-color: rgb(255,255,255);
+        }
+        button{
+            background-color: rgb(0,123,255);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pet Shop Management</h1>
+        <div class="sort-buttons">
+        <button class="btn" id="showAllPets">Show All Pets</button>
+        <button class="btn" id="showDogs">Show Dogs</button>
+        <button class="btn" id="showCats">Show Cats</button>
+    </div>
+    <div id="output">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Breed</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="petTableBody"></tbody>
+        </table>
+        </div>
+        <div id="cart"></div>
+        <div>
+            <h3 id="totalPrice"></h3>
+            <div class="checkout"></div>
+            <button class="btn" id="checkoutButton">Checkout</button>
+        </div>
+        <form action="" id="checkout-form"></form>
+            <h2>checkout</h2>
+            <input type="text" id="name" placeholder="Name"/>
+            <input type="tel" id="phoneNumber" placeholder="Phone Number"/>
+            <input type="text" id="address" placeholder="Address"/>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+const pets=[
+    {name: 'Buddy', age:3, type:'dog', breed:'Golden Retriever', price: 500},
+    {name: 'Max', age:5, type:'dog', breed:'Bulldog', price: 400},
+    {name: 'Whiskers', age:2, type:'cat', color:'Black', price: 300},
+    {name: 'Mittens', age:4, type:'cat', color:'White', price: 350}
+];
+
+let filterterm = 'all'
+const carts = []
+
+document.getElementById('showAllPets').addEventListener('click', ()=> {
+    filterterm = 'all'
+    render()
+})
+
+document.getElementById('showDogs').addEventListener('click', ()=> {
+    filterterm = 'dog'
+    render()
+})
+
+document.getElementById('showCats').addEventListener('click', ()=> {
+    filterterm = 'cat'
+    render()
+})
+
+function render(){
+    const tablebody = document.getElementById('petTableBody')
+    tablebody.innerHTML=""
+    const filterpets = filterterm === 'all'? pets : pets.filter(pet=> pet.animal === filterterm)
+
+    filterpets.forEach((pet)=>{
+        const row = document.createElement('tr')
+        row.innerHTML=`
+        <td>${pet.name}</td>
+        <td>${pet.age}</td>
+        <td>${pet.breed}</td>
+        <td>${pet.price}</td>
+        `;
+
+        const actioncell = document.createElement('td')
+        const btn = document.createElement('button')
+        btn.textContent='Add To Cart'
+        btn.className='btn'
+        btn.onclick = ()=>addToCart(pet)
+            actioncell.appendChild(btn)
+            row.appendChild(btn)
+            tablebody.appendChild(row)
+    })
+}
+
+function addToCart(pet){
+    console.log(pet)
+    const isPresent = carts.some((pet)=>carts.name === pet.name)
+    const checkoutform = document.getElementById('checkoutForm')
+    if(!isPresent){
+        carts.push(pet)
+    }
+
+    const cartElement = document.getElementById('cart')
+    cartElement.innerHTML=`<h2>Cart</h2>`;
+
+        carts.forEach((cart)=>{
+            const para=document.createElement('p')
+            para.innerHTML=`Name: ${cart.name}, Age: ${cart.age}, Color: ${cart.breed}, Price: $${cart.price}`
+            cartElement.appendChild(para)
+        })
+        const total = carts.reduce((acc, ele)=> acc+ ele.price, 0)
+        document.getElementById('totalPrice').innerText = `Total Price: $${total}`
+}
