@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>JavaScript Callbacks Project</h1>
+    </header>
+
+    <main>
+        <section id="callback-section">
+            <h2>Callback Example</h2>
+            <button id="callback-button"></button>
+            <p id="callback-result"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 JavaScript Callbacks Project</p>
+    </footer>
+    <script>
+        document.getElementById('callback-button').addEventListener('click',()=>{
+            const result=document.getElementById('callback-result');
+            result.textContent="Fetching data..."
+
+            setTimeout(() => {
+                result.textContent="Hello, this is the fetched data!"
+            }, 2000);
+        })
+    </script>
+</body>
+</html>
+
+
+
+

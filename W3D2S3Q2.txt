@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Random Quote Generator</h1>
+
+    <div class="container">
+        <p id="quote">Click to fetch a quote</p>
+        <p id="loading" style="display: none;">Loading...</p>
+        <p id="author">No Name</p>
+        <button class="fetch-button" onclick="getRandomQuote()">Get Random Quote</button>
+    </div>
+    
+
+    <script>
+        const quotes=[
+    {quote: 'fdsf', author: 'hergr'},
+    {quote: 'fdsf', author: 'hergr'},
+    {quote: 'fdsf', author: 'hergr'},
+    {quote: 'fdsf', author: 'hergr'},
+    {quote: 'fdsf', author: 'hergr'},
+    {quote: 'fdsf', author: 'hergr'},
+    {quote: 'fdsf', author: 'hergr'},
+    {quote: 'fdsf', author: 'hergr'}
+]
+
+const loading_=document.querySelector('#loading');
+const quote_=document.querySelector('#quote');
+const author_=document.querySelector('#author');
+
+function getRandomQuote(){
+    quote_.innerHTML='';
+    loading_.style.display='block'
+    setTimeout(getData,1000)
+}
+
+
+
+function getData(){
+    loading_.style.display='none'
+    const index=Math.floor(Math.random()*7);
+    quote_.textContent=quotes[index].quote;
+    author_.textContent='- ' + quotes[index].author
+}
+    </script>
+</body>
+</html>

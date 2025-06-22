@@ -1,0 +1,61 @@
+W3D2S3Q1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Application</title>
+</head>
+<body>
+    <h1>Book Management System</h1>
+    <div class="div3">
+        <div class="sp-card-2">
+            <div class="card-image">
+                <img src="./images/image1.jpg" alt="The Borrowed Hills" class="card-image" id="image1.jpg">
+            </div>
+            <div class="card-content">
+                <p id="title1"><b>The Borrowed Hills</b></p>
+                <p id="author1"><b>Author: Scott Preston</b></p>
+                <p id="price1"><b>Price: Rs 19.99</b></p>
+                <p id="available1"><b>Available: Yes</b></p>
+            </div>
+        </div>
+            <div class="sp-card-2">
+                <div class="card-image">
+                    <img src="./images/image2.jpg" alt="The Borrowed Hills" id="./images/image2.jpg">
+                </div>
+                <div class="card-content">
+                    <p id="title2"><b>Withered</b></p>
+                    <p id="author2"><b>Author: A.G.A. Wilmot</b></p>
+                    <p id="price2"><b>Price: Rs 20.55</b></p>
+                    <p id="available2"><b>Available: No</b></p>
+                </div>
+            </div>
+                <div class="sp-card-2">
+                    <div class="card-image">
+                        <img src="./images/image3.jpg" alt="The Borrowed Hills" id="image3.jpg">
+                    </div>
+                    <div class="card-content">
+                        <p id="title3"><b>The Borrowed Hills</b></p>
+                        <p id="author3"><b>Author: Scott Preston</b></p>
+                        <p id="price3"><b>Price: Rs 19.99</b></p>
+                        <p id="available3"><b>Available: Yes</b></p>
+                    </div>
+                </div>
+    </div>
+    <script src="script.js"></script>
+<!--   Write your code here -->
+</body>
+</html>
+
+document.querySelectorAll('.card-image img').forEach(img=>{
+    img.addEventListener('click', ()=>{
+        const content = img.nextElementSibling
+        if(content.style.display=='none'){
+            content.style.display='inline-block'
+        } else{
+            content.style.display='none'
+        }
+    })
+})
