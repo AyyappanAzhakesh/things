@@ -1,0 +1,59 @@
+W2D6S3Q1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Business Days</title>
+    <!-- <style>
+        .btn{
+            background-color: #076e22;
+        }
+    </style> -->
+</head>
+<body>
+    <h1>Calculate Business Days</h1>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate">
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate">
+
+    <button>Calculate</button>
+
+    <div id="result"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+const  btn = document.querySelector('button')
+btn.addEventListener('click',()=>{
+    const startDate = document.getElementById('startDate').value
+    const endDate = document.getElementById('endDate').value
+    const para = document.getElementById('result')
+
+    if(!startDate || !endDate){
+        para.innerText = 'Please enter both start and end dates.'
+        return
+    }
+
+    const StartDate = new Date(startDate)
+    const EndDate = new Date(endDate)
+
+    console.log(StartDate.getDay())
+    if(StartDate.getDay()==6 || StartDate.getDate()==5){
+        para.textContent = `Number of business days: 0`
+        return
+    }
+    if(startDate==endDate){
+        para.textContent = `Number of business days: 1`
+        return
+    }
+    let diff = EndDate-StartDate
+    let days = diff/(3600*1000*24)
+    let no_of_weekdays = (days/7)*2
+    para.textContent = `Number of business days: ${Math.ceil(days-no_of_weekdays)}`
+})
+

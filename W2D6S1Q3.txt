@@ -1,0 +1,45 @@
+W2D6S1Q3
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Custom Text Replacement Tool</h1>
+    <label for="text">Enter some text:</label>
+    <textarea id="inputText" cols="35" rows="5"></textarea>
+    <label for="replace">Enter the pattern to replace:</label>
+    <input type="text" id="pattern"/>
+    <label>Enter the value to replace with:</label>
+    <input type="text" id="replacementValue">
+    <button onclick="replacePattern()">Replace Pattern</button>
+    <p>Modified Text:</p>
+    
+    <div id="modifiedText"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+function replacePattern(){
+    const iT = document.getElementById('inputText').value.trim()
+    const pT = document.getElementById('pattern').value.trim()
+    const rP = document.getElementById('replacementValue').value.trim()
+    const res = document.getElementById('modifiedText')
+
+    res.innerHTML = ''
+
+    if(!iT || !pT || !rP){
+        res.innerText='Please fill in all input fields.'
+        return
+    }
+    try{
+        const regex = new RegExp(pT, 'g')
+        const newText = iT.replace(regex, rP)
+        res.innerHTML = `${newText}`
+    } catch(error){
+        res.innerText = `Invalid pattern.`;
+    }
+}
+

@@ -1,0 +1,42 @@
+W2D6S1Q1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .valid{
+            color: rgb(0,128,0);
+        }
+        .invalid{
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+    <label for="email">Email:</label>
+    <input type="email" id="email"/>
+    <button onclick="validateEmail()">Submit</button>
+
+    <div id="message"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+function validateEmail(){
+    const eI = document.getElementById('email')
+    const mS = document.getElementById('message')
+    const email = eI.value.trim()
+    const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if(emailReg.test(email)){
+        mS.textContent = 'Valid Email Address'
+        mS.className = 'valid'
+    }
+    else{
+        mS.textContent = 'Invalid Email Address'
+        mS.className = 'invalid'
+    }
+
+}

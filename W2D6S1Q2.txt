@@ -1,0 +1,41 @@
+W2D6S1Q2
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern Matcher</title>
+</head>
+<body>
+    <h1>Pattern Matcher</h1>
+    <div class="form-group">
+        <label for="sentence">Enter some sentences:</label>
+        <textarea name="" id="sentences" cols="30" rows="5"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="sentence">Enter a pattern to search:</label>
+        <input type="text" id="pattern">
+    </div>
+        <button onclick="findPattern()">Find Pattern</button>
+        <p id="result"></p>
+        <script src="script.js"></script>
+</body>
+</html>
+
+function findPattern(){
+    const sentence = document.getElementById('sentences').value
+    const pattern = document.getElementById('pattern').value
+    const result = document.getElementById('result')
+
+    if(!pattern.trim()){
+        result.innerText = 'Please enter a pattern to search for.'
+        return
+    }
+
+    const regex = new RegExp(pattern, 'g')
+    const matches = sentence.match(regex)
+    const count = matches ? matches.length : 0
+    result.innerText = `The pattern "${pattern}" occurred ${count} times.`
+}
+

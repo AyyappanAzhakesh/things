@@ -1,0 +1,64 @@
+W2D6S2Q2
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+    <h1>Interactive Color Picker</h1>
+    <div id="colorDisplay"></div>
+
+    <div class="slider-container">
+        <label for="redRange">Red:</label>
+        <input type="range" id="redRange" min="0" max="255" value="128">
+    </div>
+    <div class="slider-container">
+        <label for="greenRange">Green:</label>
+        <input type="range" id="greenRange" min="0" max="255" value="0">
+    </div>
+    <div class="slider-container">
+        <label for="blueRange">Blue:</label>
+        <input type="range" id="blueRange" min="0" max="255" value="128">
+    </div>
+    <button id="randomColorBtn" onclick="updateColorDisplay()">Random Color</button>
+   <!-- write your code here -->
+   <script src="script.js"></script>
+</body>
+</html>
+
+const redRange = document.getElementById("redRange")
+const greenRange = document.getElementById("greenRange")
+const blueRange = document.getElementById("blueRange")
+const colorDisplay = document.getElementById("colorDisplay")
+const randomColorBtn = document.getElementById("randomColorBtn")
+
+function updateColorDisplay(){
+    console.log("hello")
+    const r = redRange.value
+    const b = blueRange.value
+    const g = greenRange.value
+
+    colorDisplay.style.backgroundColor=`rgb(${r}, ${g}, ${b})`
+}
+
+redRange.addEventListener("input", updateColorDisplay)
+greenRange.addEventListener("input", updateColorDisplay)
+blueRange.addEventListener("input", updateColorDisplay)
+
+randomColorBtn.addEventListener('click', ()=>{
+    const r = Math.floor(Math.random()*256)
+    const g = Math.floor(Math.random()*256)
+    const b = Math.floor(Math.random()*256)
+
+    redRange.value = r
+    greenRange.value = g
+    blueRange.value = b
+
+    updateColorDisplay()
+
+})
+window.addEventListener("DOMContentLoaded", updateColorDisplay)
+
