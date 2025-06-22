@@ -1,74 +1,97 @@
-W3D2S1Q1
+W3D2S1Q2
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .add-to-cart{
-            background-color: rgb(40,167,69);
-            color: white;
-        }
-        .remove{
-            background-color: red;
-            color: white;
-        }
-    </style>
 </head>
 <body>
-    <h1>Product List</h1>
-    <div id="product-list">
-        <div class="product">
-            <img src="https://via.placeholder.com/100" alt="Product 1">
-            <p>Google Pixel - $20.00</p>
-            <button class="add-to-cart" data-name="Google Pixel" data-price="20">Add to Cart</button>
+    <div class="container">
+    <h1>Train Ticket Booking</h1>
+    <form action="" id="train-form">
+        <h2>Add Train</h2>
+        <div class="form-group">
+            <label for="name">Train Name</label>
+            <input type="text" name="name" id="train-name" placeholder="Enter Train Number"/>
         </div>
-        <div class="product">
-            <img src="https://via.placeholder.com/100" alt="Product 2">
-            <p>Sony Bravia - $60.00</p>
-            <button class="add-to-cart" data-name="Sony Bravia" data-price="60">Add to Cart</button>
+        <div class="form-group">
+            <label for="destination">Destination</label>
+            <input type="text" name="destination" id="train-destination" placeholder="Enter Destination"/>
         </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" name="price" id="train-price" placeholder="Enter Price"/>
+        </div>
+        <button type="submit" class="btn">Add Train</button>
+    </form>
+    <form id="booking-form">
+        <h2>Book Tickets</h2>
+        <div class="form-group">
+            <label for="train">Select Train</label>
+            <select name="train" id="train-select"></select>
+        </div>
+        <div class="form-group">
+            <label for="passenger">Passenger Namw</label>
+            <input type="text" name="passenger" id="passenger-name" placeholder="Enter Passenger Name"/>
+        </div>
+        <div class="form-group">
+            <label for="tickets">Number of Tickets</label>
+            <input type="text" name="tickets" id="num-tickets" value="1"/>
+        </div>
+        <button type="submit" class="btn">Book Tickets</button>
+    </form>
+    <div id="booked-tickets-list">
+        <h2>Booked Tickets</h2>
+        <ul id="result">
+        </ul>
     </div>
-    <h2>Cart</h2>
-    <ul id="cart-list"></ul>
-    <p>Total: $<span id="total">0</span></p>
-    <button id="checkout-btn">Checkout</button>
+    </div>
     <script src="script.js"></script>
-    <!-- Write your HTML here -->
 </body>
 </html>
+---------------------------------------
 
+const trains = []
+document.getElementById('train-form').addEventListener('submit', addTrains)
+function addTrains(event){
+    event.preventDefault()
+    const name= document.getElementById('train-name')?.value
+    const destination = document.getElementById('train-destination')?.value
+    const price = parseInt(document.getElementById('train-price')?.value)
 
-const cartList = document.getElementById('cart-list')
-const totalDisplay = document.getElementById('total')
-let total = 0
-function updateTotal(amount){
-    total += amount
-    totalDisplay.textContent = total.toFixed(2)
-}
-function removeItem(e){
-    const li = e.target.closest('.cart-item')
-    if(!li) return
-    const price = parseFloat(li.getAttribute('data-price'))
-    updateTotal(-price)
-    li.remove()
-}
-document.querySelectorAll('.add-to-cart').forEach(button=>{
-    button.addEventListener('click',()=>{
-        const name= button.getAttribute('data-name')
-        const price= parseFloat(button.getAttribute('data-price'))
-        
-        const li = document.createElement('li')
-        li.classList.add('cart-item')
-        li.setAttribute('data-price', price)
-        li.innerHTML= `
-        ${name} - $${price.toFixed(2)}
-        <button class="remove">Remove</button>
-        `
-        cartList.appendChild(li)
-        updateTotal(price)
+    if(!name || !destination || !price){
+        return
+    }
+
+    trains.push({name,destination,price})
+
+    const selectEle = document.getElementById('train-select')
+    selectEle.innerHTML=``;
+    trains.forEach((train)=>{
+        const option = document.createElement('option')
+        option.value = `${train.name} ${train.destination} for $${train.price}`
+        option.textContent = `${train.name} ${train.destination} - $${train.price.toFixed(2)}`
+        selectEle.appendChild(option)
     })
-})
+    this.reset()
+}
+
+document.getElementById('booking-form').addEventListener('submit', addbooking)
+function addbooking(event){
+    event.preventDefault()
+    const train = document.getElementById('train-select')?.value
+    const passenger_name = document.getElementById('passenger-name')?.value
+    const noOfTickets = document.getElementById('num-tickets')?.value
+    const results = document.getElementById('result')
+
+    if(!train || !passenger_name || !noOfTickets){
+        return
+    }
+    results.innerHTML=`
+        <li>${passenger_name} booked ${noOfTickets} ticket(s) on ${train}</li>
+    `;
+    this.reset()
+}
