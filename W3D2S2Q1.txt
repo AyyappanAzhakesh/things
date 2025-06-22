@@ -1,0 +1,59 @@
+W3D2S2Q1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        button{
+            background-color: #0056b3;
+            padding: 10px 28px;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="quote">Click the button to fetch a quote</p>
+        <p class="loading" style="display: none;">Loading quote</p>
+        <p class="author">No Name</p>
+        <button class="fetch-button" onclick="fetchRandomQuote()">Fetch New Quote</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+const quotes = [
+    {quote: 'Lorem ipsum dolor sit amet.!', author: 'keerthana'},
+    {quote: 'Lorem ipsum dolor sit amet.!', author: 'sree'},
+    {quote: 'Lorem ipsum dolor sit amet.!', author: 'lok'},
+    {quote: 'Lorem ipsum dolor sit amet.!', author: 'tam'},
+    {quote: 'Lorem ipsum dolor sit amet.!', author: 'aad'},
+    {quote: 'Lorem ipsum dolor sit amet.!', author: 'keerthana'},
+    {quote: 'Lorem ipsum dolor sit amet.!', author: 'keerthana'}
+
+]
+
+
+const loading_ = document.querySelector('.loading')
+const quote_ = document.querySelector('.quote')
+const author_ = document.querySelector('.author')
+
+function fetchRandomQuote(){
+    quote_.innerHTML = ''
+    loading_.style.display = 'block'
+    setTimeout(getData, 1000)
+}
+
+fetch()
+
+
+function getData(){
+    loading_.style.display = 'none'
+    const index = Math.floor(Math.random() * 7)
+    quote_.textContent = quotes[index].quote
+    author_.textContent = '- ' + quotes[index].author
+}

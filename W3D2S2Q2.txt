@@ -1,0 +1,54 @@
+W3D2S2Q2
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+    <h1>Recipe Finder</h1>
+    <form id="search-form">
+        <input type="text" id="query" placeholder="Search recipe" required/>
+        <button type="submit" >Search</button>
+    </form>
+    <div id="results"></div>
+
+
+    <script>
+        const form = document.getElementById('search-form')
+        const queryInput = document.getElementById('query')
+        const resultsDiv = document.getElementById('results')
+        form.addEventListener('submit', async(e)=>{
+            e.preventDefault()
+            const query = queryInput.value.trim()
+            resultsDiv.innerHTML = ''
+
+            if (!query) return
+            const dummyData = [
+                {
+                    title:'Grilled Chicken',
+                    image: 'https://via.placeholder.com/100',
+                    link: 'https://example.com/chicken1'
+                },
+                {
+                    title:'Chicken Curry',
+                    image: 'https://via.placeholder.com/100',
+                    link: 'https://example.com/chicken2'
+                },
+            ]
+            dummyData.forEach(recipe=>{
+                const div = document.createElement('div')
+                div.className=`recipe`
+                div.innerHTML=`
+                <h3>${recipe.title}</h3>
+                <img src="${recipe.image}" alt="${recipe.title}">
+                <p><a href="${recipe.link}">View Recipe</a></p>
+                `
+                resultsDiv.appendChild(div)
+            })
+        })
+    </script>
+</body>
+</html>
