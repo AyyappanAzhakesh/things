@@ -1,0 +1,443 @@
+session 3_ q1
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+    <h1>Product Catalog</h1>
+
+    <label for="category-filter">Category:</label>
+    <select name="category-filter" id="category-filter">
+        <option value="all">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="books">Books</option>
+    </select>
+
+    <div id="product-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+const products = [
+    {name:'Product A', description: "Description of Product A", price: "$29.99", category:"electronics"},
+    {name:'Product B', description: "Description of Product B", price: "$39.99", category:"clothing"},
+    {name:'Product B', description: "Description of Product B", price: "$39.99", category:"books"},
+    {name:'Product B', description: "Description of Product B", price: "$39.99", category:"electronics"},
+    {name:'Product B', description: "Description of Product B", price: "$39.99", category:"clothing"}
+]
+
+const filterSelect = document.getElementById('category-filter');
+const productContainer = document.getElementById('product-container');
+
+function renderProducts(category){
+    productContainer.innerHTML="";
+    const filterProducts = category ==="all"
+        ? products
+        :products.filter(p => p.category === category);
+    filterProducts.forEach((product) => {
+        const productCard = document.createElement('div');
+        productCard.className='product-card';
+
+        productCard.innerHTML=`
+            <h2>${product.name}</h2>
+            <p>${product.description}</p>
+            <p>Price: ${product.price}</p>
+        `;
+
+        productContainer.appendChild(productCard);
+    })
+}
+
+renderProducts("all");
+
+filterSelect.addEventListener('change', () => {
+    renderProducts(filterSelect.value);
+})
+
+
+
+
+session2_q1
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+    <h1>Book Information Viewer</h1>
+
+    <input type="text" id="search" placeholder="search">
+    <p id="total-books">Total Books available</p>
+
+    <div id="books"></div>
+
+    <p style="display: none;" id="no-books-message">No books found.</p>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+const booksAll = [
+    {title:"Babbbb", author:"Roshan", description:"roshan killing people"},
+    {title:"1984", author:"Roshan", description:"roshan killing people"},
+    {title:"Rosh", author:"Roshan", description:"roshan killing people"},
+    {title:"Skibidi", author:"Roshan", description:"roshan killing people"}
+];
+
+const searchInp = document.getElementById('search');
+const totalBooks = document.getElementById('total-books');
+const books = document.getElementById('books');
+const errorMsg = document.getElementById('no-books-message');
+
+function displayBooks(filteredBooks){
+    books.innerHTML="";
+    if(filteredBooks.length === 0){
+        errorMsg.style.display='block';
+    } else{
+        errorMsg.style.display='none';
+        filteredBooks.forEach(book => {
+            const bookdiv = document.createElement('div');
+            const h2 = document.createElement('h2');
+            const p1 = document.createElement('h4');
+            const p2 = document.createElement('p');
+
+            h2.textContent = book.title;
+            p1.textContent=`Author: ${book.author}`;
+            p2.textContent=book.description;
+
+            bookdiv.appendChild(h2);
+            bookdiv.appendChild(p1);
+            bookdiv.appendChild(p2);
+
+            books.appendChild(bookdiv);
+        });
+    }
+
+    totalBooks.textContent=`Total books available: ${filteredBooks.length}`;
+}
+
+displayBooks(booksAll);
+
+searchInp.addEventListener('input', () => {
+    const query = searchInp.value.toLowerCase();
+    console.log(query);
+    const filtd = booksAll.filter(book => 
+        book.title.toLowerCase().includes(query)
+    );
+
+    displayBooks(filtd);
+});
+
+
+
+session2_q2
+
+
+let tasks = [];
+
+window.onload = function() {
+    const saved = localStorage.getItem('tasks');
+    if(saved){
+        tasks = JSON.parse(saved);
+        renderTasks();
+    }
+};
+
+
+
+function saveTask(){
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function addTask(){
+    const inp = document.getElementById('taskInput');
+    const taskText = inp.value.trim();
+    if(!taskText) return;
+    tasks.push({task:taskText, completed: false});
+
+    saveTask();
+    renderTasks();
+    inp.value="";
+
+}
+
+function toggleComplete(index){
+    tasks[index].completed = !tasks[index].completed;
+    saveTask();
+    renderTasks();
+}
+
+
+
+function renderTasks(){
+    const ul = document.getElementById('taskList');
+    ul.innerHTML="";
+    tasks.forEach((task, i) => {
+        const row = document.createElement('li');
+        row.textContent = task.task;
+        if(task.completed) row.classList.add('completed');
+        row.addEventListener('click', () => toggleComplete(i));
+        ul.appendChild(row);
+    });
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+
+    <style>
+        li.completed{
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button type="button" onclick="addTask()">Add Task</button>
+
+    <ul id="taskList"></ul>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+sesson1_q3
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dashboard</title>
+  
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <form action="" id="userForm">
+        <h2>Add User</h2>
+        <label for="">Name</label>
+        <input type="text" name="name" id="name" required>
+    
+        <label for="">Email</label>
+        <input type="email" name="email" id="email" required>
+    
+        <label for="">Phone</label>
+        <input type="tel" name="phone" id="phone" required>
+    
+        <label for="">Role</label>
+        <select name="role" id="role">
+            <option value="Student">Student</option>
+            <option value="Teacher">Teacher</option>
+        </select>
+    
+        <button type="submit">Add User</button>
+    </form>
+
+    <ul id="users">
+    </ul>
+
+    <script>
+        const userForm = document.getElementById('userForm');
+        const userDiv = document.getElementById('users');
+
+        let users = [];
+        let editingIndex = -1;
+
+        function renderUsers(){
+            userDiv.innerHTML = '';
+            users.forEach((user, index) => {
+                const li = document.createElement('li');
+                li.className='user-entry';
+                const info = document.createElement('span');
+                info.textContent=`Name: ${user.name}, Email: ${user.email}, Phone: ${user.phone}, Role: ${capitalize(user.role)}`;
+
+                const actionDIv = document.createElement('div');
+                actionDIv.className='actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.id='edit';
+                editBtn.textContent='Edit';
+                editBtn.addEventListener('click', () => editUser(index));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.id='delete';
+                deleteBtn.textContent='Delete';
+                deleteBtn.addEventListener('click', () => deleteUser(index));
+
+                
+                actionDIv.appendChild(editBtn);
+                actionDIv.appendChild(deleteBtn);
+                li.appendChild(actionDIv);
+                li.appendChild(info);
+
+                userDiv.appendChild(li);
+            });
+
+            console.log(JSON.stringify(users));
+        }
+
+        function capitalize(str){
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
+
+        userForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const role = document.getElementById('role').value;
+
+            const userObj = {name, email, phone, role};
+
+            if(editingIndex >= 0){
+                users[editingIndex] = userObj;
+                editingIndex = -1;
+            } else {
+                users.push(userObj);
+            }
+
+            userForm.reset();
+            renderUsers();
+        });
+
+        function deleteUser(index){
+            users.splice(index, 1);
+            renderUsers();
+        }
+
+        function editUser(index){
+            const user = users[index];
+            document.getElementById('name').value = user.name;
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = user.phone;
+            document.getElementById('role').value = user.role;
+
+            editingIndex = index;
+        }
+
+        renderUsers();
+    </script>
+</body>
+</html>
+
+
+
+
+
+session1_q2
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+    <header>
+        <h1>Flight Record Management System</h1>
+    </header>
+    <main>
+        <form action="" id="flight-form">
+            <label for="flight-number">Flight Number: </label>
+            <input type="text" id="flight-number">
+
+            <label for="destination">Destination: </label>
+            <input type="text" id="destination">
+
+            <label for="status">Status: </label>
+            <input type="text" id="status">
+
+            <label for="time">Time: </label>
+            <input type="text" id="time">
+
+            <button type="button" class="form-actions" onclick="addFlights()">Save Flight</button>
+            <button type="button" class="form-actions" onclick="displayFlights()">Display All Flight</button>
+            <button type="button" class="form-actions" onclick="clearAllFlights()">Clear All Flight</button>
+        </form>
+
+        <input type="text" id="search" placeholder="Search FLights">
+
+        <div id="flightRecords"></div>
+    
+    </main>
+
+
+    <script>
+        let filghts = JSON.parse(localStorage.getItem('flightRecords')) || [];
+
+        function displayFlights(flightList = filghts){
+            const box = document.querySelector('#flightRecords');
+            box.innerHTML='';
+
+            flightList.forEach((flight) => {
+                const div = document.createElement('div');
+                div.className='record';
+                div.innerHTML=`
+                    <div class="record-detail">Destination: ${flight.destination}</div>
+                    <div class="record-detail">Flight Number: ${flight.flightNumber}</div>
+                    <div class="record-detail">Status: ${flight.status}</div>
+                    <div class="record-detail">Time: ${flight.time}</div>
+                `;
+
+                box.appendChild(div);
+            })
+        }
+
+        function addFlights(){
+            const flight = {
+                flightNumber:document.querySelector('#flight-number').value,
+                destination:document.querySelector('#destination').value,
+                status:document.querySelector('#status').value,
+                time:document.querySelector('#time').value
+            }
+
+            filghts.push(flight);
+            console.log(filghts);
+            localStorage.setItem('flightRecords', JSON.stringify(filghts));
+
+            displayFlights();
+        }
+
+        document.querySelector('#search').addEventListener('input', () => {
+            const searchItem = document.querySelector('#search').value.toLowerCase();
+            console.log(searchItem);
+            if(searchItem === ''){
+                filghts = JSON.parse(localStorage.getItem('flightRecords')) || [];
+                console.log(filghts.length);
+                displayFlights(filghts);
+            } else{
+                const filterFlights = filghts.filter(f => f.flightNumber.toLowerCase().includes(searchItem));
+                console.log(filterFlights);
+                console.log(document.querySelector('#flightRecords .record .record-detail:nth-child(1)'));
+                displayFlights(filterFlights);
+            }
+        })
+
+
+        displayFlights();
+    </script>
+</body>
+</html>
