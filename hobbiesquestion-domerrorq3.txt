@@ -1,0 +1,58 @@
+//html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+    <form id="survey-form">
+        <h1>Survey Form</h1>
+        <h2>Hobbies</h2>
+        <input type="checkbox" name="hobbies" value="Reading">
+        <label for="Reading">Reading</label>
+        <input type="checkbox" name="hobbies" value="Travelling">
+        <label for="Travelling">Travelling</label>
+        <h3>Preferred Contact Method</h3>
+        <input type="radio" value="Email" name="contact" id="email" checked>Email
+        <input type="radio" value="Phone" name="contact" id="Phone" checked>Phone <br>
+        <button type="submit">Submit</button>
+        <p id="error-message"></p>
+    </form>
+    <div id="summary">
+        <h2>Summary</h2>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+//js
+
+document.getElementById("survey-form").addEventListener('submit', function(event){
+    event.preventDefault();
+    const hobbies = document.querySelectorAll('input[type="checkbox"]:checked');
+    const contact = document.querySelector('input[name="contact"]:checked');
+    const errorMessage = document.getElementById('error-message');
+    const summaryText = document.getElementById('summary');
+    if(hobbies.length === 0){
+        errorMessage.textContent = "Please select at least one hobby.";
+        summaryText.innerHTML = "";
+        return;
+    }
+    errorMessage.textContent = "";
+    let hobbyList = "";
+    hobbies.forEach(hobby =>{
+        hobbyList += `<li>${hobby.value}</li>`;
+    });
+    summaryText.innerHTML = `
+    <div id = "summary">
+    <h2>Summary</h2>
+    <p><strong>Hobbies:</strong></p>
+    <ul>${hobbyList}</ul>
+    <p>Preferred Contact Method:${contact.value}</p>
+    </div>
+    `;
+});

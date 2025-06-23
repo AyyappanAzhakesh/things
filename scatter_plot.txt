@@ -1,0 +1,50 @@
+html
+//js
+const canvas=document.getElementById('myScatterPlot');
+const ctx=canvas.getContext('2d');
+const chart={
+    hours:[5,10,15,20,25,30,35],
+    productivity: [20,40,30,60,50,80,70]
+}
+const margin=50;
+const chartWidth=canvas.width=2*margin;
+const chartHeight=canvas.height-2*margin;
+
+ctx.font='bold 16px Arial';
+ctx.color='black';
+ctx.fillText('Employee Productivity vs Hours Worked', canvas.width/2-60, 10,120,);
+
+ctx.beginPath();
+ctx.moveTo(margin,margin);
+ctx.lineTo(margin, canvas.height-margin);
+ctx.lineTo(canvas.width-margin, canvas.height-margin);
+ctx.stroke();
+
+ctx.fillText('Productivity', margin-25, margin-15);
+ctx.fillText('Work Hours', chartWidth/2+20, canvas.height-margin+40);
+
+for(let i=0;i<ChartData.months.lengt;i++){
+    const xAxis=margin+(i/(length-1))*chartWidth;
+    ctx.fillText(charData.month[i], xAxis - 15, canvas.height-margin+20);
+}
+const maxValue=Math.max(...chartData.productivity);
+const yAxisSteps=6;
+const yAxisStepValue = maxValue / yAxisSteps;
+
+for(let i=0; i<chartData.hours.length;i++){
+    const yValue=yAxisSteps * i;
+    const yCoords = canvas.height - margin - (yValue/maxValue)*chartHeight;
+    ctx.fillText(yValue, margin-30,yCoords+5);
+
+    ctx.beginPath();
+    ctx.moveTo(margin, yCoords);
+    ctx.lineTo(margin-5,yCoords);
+    ctx.fillStylw= 'blue';
+    for(let i=0; i<chartData.productivity.length-1;i++){
+        const x=margin+(i/(charData.productivity.length-1))*charWidth;
+        const y=canvas.height-margin-(charData.productivity[i]/maxValue)+chartHeight;
+        ctx.beginPath();
+        ctx.arc(x,y,5,0, Math.PI*2);
+        ctx.fillStyle();
+    }
+}

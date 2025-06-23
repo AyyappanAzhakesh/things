@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+    <!-- write your code here -->
+    <h1>Sentence Analyzer</h1>
+    <label for="userSentence">Enter a sentence:</label>
+    <input type="text" id="userSentence"/>
+    <button id="analyseButton"">Analyze</button>
+    <!-- <p id="errorMsg" style="color:red;"></p> -->
+    <pre id="analysisOutput"></pre>
+    <script src="script.js"></script>
+</body>
+
+</html>
+SCRIPT JS
+document.getElementById("analyseButton").addEventListener("click",analyzeSentence);
+function analyzeSentence(){
+    const input=document.getElementById("userSentence").value.trim();
+    const errorMsg=document.getElementById("errorMsg");
+    const output=document.getElementById("analysisOutput")
+    // errorMsg.textContent="";
+    output.textContent="";
+    const validPattern=/^[A-Za-z\s]+$/;
+    if(input===""||!validPattern.test(input)){
+        output.textContent="Please enter only alphabets and spaces.";
+        return;
+    }
+    const words=input.split(/\s+/).filter(word=>word.length>0);
+    const wordCount=words.length;
+    let totalLength=0;
+    let longestWord="";
+
+    for(let word of words){
+        totalLength+=word.length;
+        if(word.length>longestWord.length){
+            longestWord=word;
+        }
+    };
+    const averageLength=(totalLength/wordCount).toFixed(2);
+    output.textContent=
+    "Sentence Analysis:\n" +
+    `- Number of Words: ${wordCount}\n`+
+    `- Average Word Length: ${averageLength} (excluding punctuation and spaces)\n`+
+    `- Longest Word: ${longestWord}`;
+}

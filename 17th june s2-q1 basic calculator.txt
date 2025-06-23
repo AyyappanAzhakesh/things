@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+
+<body>
+    <!-- write your code here -->
+    <h1>Basic Calculator</h1>
+    <label for="num1">Enter first number: </label>
+    <input type="number" name="num1" id="num1">
+    <label for="num2">Enter second number: </label>
+    <input type="number" name="num2" id="num2">
+    <button type="submit" id="calculate">Calculate</button>
+    <pre id="output"></pre>
+    <script src="script.js"></script>
+</body>
+
+</html>
+SCRIPT 
+const btn = document.getElementById('calculate');
+btn.addEventListener('click', () => {
+    const n1 = document.getElementById('num1').value;
+    const n2 = document.getElementById('num2').value;
+    const para = document.getElementById('output');
+    const n1Type = n1 % 2 == 0 ? `Number 1 (a = ${n1}): Even` : `Number 1 (a = ${n1}): Odd`;
+    const n2Type = n2 % 2 == 0 ? `Number 2 (b = ${n2}): Even` : `Number 2 (b = ${n2}): Odd`;
+    const sum = parseInt(n1) + parseInt(n2);
+    const difference = n1 - n2;
+    const multiple = n1 * n2;
+    const division = (n1 == 0 || n2 == 0) ? 'Division by zero is not allowed.' : n1 / n2;
+
+    para.innerHTML = `${n1Type}\n${n2Type}\n\nSum: ${sum}\nDifference: ${difference}\nProduct: ${multiple}\nQuotient: ${division}
+    `;
+})

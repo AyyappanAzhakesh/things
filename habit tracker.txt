@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+
+<body>
+    <!-- write your code here -->
+    <header>
+        <h1>Habit Tracker</h1>
+    </header>
+    <main>
+        <form action="" id="habitForm">
+            <input type="text" id="habit" placeholder="New Habit">
+            <button type="submit">Add Habit</button>
+        </form>
+        <h2>Habits</h2>
+        <ul id="habitList">
+
+        </ul>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
+script
+let habits = JSON.parse(localStorage.getItem('habits')) || []
+const habitList_ = document.querySelector('#habitList')
+document.querySelector('#habitForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = document.querySelector('#habit').value;
+    let completed = true
+    let status = 'Not Completed'
+    habits.push({ id: (habits.length + 1), name, status, completed })
+    localStorage.setItem('habits', JSON.stringify(habits))
+    soMe()
+})
+function soMe() {
+    habitList_.innerHTML = '';
+    habits.forEach((habit) => {
+        const li = document.createElement('li')
+        li.innerHTML = `
+        <p>${habit.name} - ${habit.status}</p>
+        <button onclick="()=>updateStatus(${habit.id})">Mark as Completed</button>
+        <button onclick="()=>deleteHabit(${habit.id})">Delete</button>
+        `;
+        habitList_.appendChild(li)
+        console.log(habit.status)
+    })
+}
+soMe()
+function updateStatus(userId) {
+    console.log('Nothing')
+}
+function deleteHabit(userId) {
+    console.log('Nothing')
+}

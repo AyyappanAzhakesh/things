@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body><center>
+    <div class="quiz.container">
+        <h1>Interactive Quiz</h1>
+        <h2 id="question">Question will appear here</h2>
+        <input type="text" id="answer" placeholder="Enter your answer"><br>
+        <button id="Btn">Submit</button>
+        <p id="result"></p>
+        <p id="score"></p>
+    </div>
+</center>
+    <script src="script.js"></script>
+</body>
+</html>
+
+SCRIPT:
+const ques = [
+    {question: "What is 2 + 2?", answer: "4"},
+    {question: "What is 5 + 3?", answer:"8"},
+    {question: "What is 10 - 7?", answer:"3"}
+];
+let Qindex=0;
+let score=0;
+function showQuestion(){
+    if(Qindex<ques.length){
+        document.getElementById('question').textContent=ques[Qindex].question;
+        document.getElementById('answer').value="";
+        document.getElementById("result").textContent="";
+        document.getElementById("result").style.color="black";
+    }
+    else{
+        document.getElementById('question').textContent="Quiz complete!";
+        document.getElementById('answer').style.display="none";
+        document.getElementById("Btn").style.display="none";
+        document.getElementById("result").textContent="Correct!";
+        document.getElementById("result").style.color="rbg(0,128,0)";
+        document.getElementById("score").textContent=`Your final score is: ${score}/${ques.length}`.trim();
+    }
+}
+document.getElementById('Btn').addEventListener('click', submitAnswer);
+function submitAnswer(){
+    const userAns=document.getElementById("answer").value.trim();
+    const CorrectAns=ques[Qindex].answer;
+
+    const resEle = document.getElementById("result");
+    if(userAns===CorrectAns){
+        resEle.textContent = "Correct!";
+        resEle.style.color="rbg(0,128,0)";
+        score++;
+    }
+    else{
+        resEle.textContent="Incorrect!";
+        resEle.style.color="rgb(255,0,0)";
+    }
+    Qindex++;
+    setTimeout(showQuestion,1000);
+}
+showQuestion();
+CSS:
+.quiz-container{
+    width: 400px;
+    height: 350px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.quiz-container input{
+    width: 270px;
+    padding: 10px 30px;
+    border: 1px solid black;
+}
+.quiz-container button{
+    width: 320px;
+    padding: 10px 30px;
+    background-color: rgb(0,128,0);
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
