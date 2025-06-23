@@ -1,0 +1,69 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple OOP in JavaScript</title>
+</head>
+<body>
+   <!-- write your code here -->
+   <h1>Temperature Converter</h1>
+   <label for="temp">Enter Temperature:</label>
+   <input type="number" id="temperature" placeholder="Enter temperature">
+   <label for="fromUnit">Convert from:</label>
+   <select name="unit" id="fromUnit">
+    <option value="Celsius">Celsius</option>
+    <option value="Kelvin">Kelvin</option>
+    <option value="Fahrenheit">Fahrenheit</option>
+   </select>
+   <label for="convert">Convert to:</label>
+   <select name="unit" id="toUnit">
+    <option value="Celsius">Celsius</option>
+    <option value="Kelvin">Kelvin</option>
+    <option value="Fahrenheit">Fahrenheit</option>
+   </select>
+   <button id="btn">Convert</button>
+   <p id="result"></p>
+   <script src="script.js"></script>
+</body>
+</html>
+script js
+function convertTemperature(temp,fromu,tou){
+    if(fromu=='Celsius' && tou=='Kelvin'){
+        let a=(temp+273.15);
+        document.getElementById('result').textContent=`Result: ${a.toFixed(2)} ${tou}`
+    }
+    else if(tou=='Celsius' && fromu=='Kelvin'){
+        let a=temp-273.15;
+        document.getElementById('result').textContent=`Result: ${a.toFixed(2)} ${tou}`
+    }
+    else if(tou=='Fahrenheit' && fromu=='Celsius'){
+        let a=(temp*9/5)+32;
+        document.getElementById('result').textContent=`Result: ${a.toFixed(2)} ${tou}`
+    }
+    else if(tou=='Celsius' && fromu=='Fahrenheit'){
+        let a=(temp-32)*5/9;
+        document.getElementById('result').textContent=`Result: ${a.toFixed(2)} ${tou}`
+    }
+    else if(tou=='Kelvin' && fromu=='Fahrenheit'){
+        let a=((temp-32)*5/9)+273.15;
+        document.getElementById('result').textContent=`Result: ${a.toFixed(2)} ${tou}`
+    }
+    else if(tou=='Fahrenheit' && fromu=='Kelvin'){
+        let a=(temp-273.15)*9/5+32;
+        document.getElementById('result').textContent=`Result: ${a.toFixed(2)} ${tou}`
+    }
+}
+    document.getElementById('btn').addEventListener('click',()=>{
+        const a1=document.getElementById('toUnit').value;
+        const b=document.getElementById('fromUnit').value;
+        const c=parseInt(document.getElementById('temperature').value);
+        console.log(c);
+        if(c>0){
+            convertTemperature(c,b,a1);
+        }
+        else{
+            document.getElementById('result').textContent=`NaN ${a}`;
+        }
+    })
