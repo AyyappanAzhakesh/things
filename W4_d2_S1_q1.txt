@@ -1,0 +1,55 @@
+const btn = document.getElementById('button');
+btn.addEventListener('click', () => {
+    const title = (document.getElementById('bookTitle') as HTMLInputElement).value;
+    const author = (document.getElementById('bookAuthor') as HTMLInputElement).value;
+    const genre = (document.getElementById('bookGenre') as HTMLInputElement).value;
+    const booksList = document.getElementById('books-list');
+
+    if(!title || !author || !genre) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    booksList.innerHTML = '';
+    const div = document.createElement('div');
+    div.innerText = '';
+    div.className = 'book';
+    div.innerHTML = `
+    <p>${title}</p>
+    <p>${author}</p>
+    <p>${genre}</p>
+    <button class="delete">Delete</button>
+    `;
+    booksList.appendChild(div);
+
+    document.querySelector('.delete').addEventListener('click', () => {
+        booksList.removeChild(div);
+    });
+    (document.getElementById('bookTitle') as HTMLInputElement).value = '';
+    (document.getElementById('bookAuthor') as HTMLInputElement).value = '';
+})
+--------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>library management system</title>
+</head>
+<body>
+    <header>
+        <h1>library management system</h1>
+    </header>
+    <input type="text" id="bookTitle" placeholder="Enter book title">
+    <input type="text" id="bookAuthor" placeholder="Enter book author">
+    <select name="genre" id="bookGenre">
+        <option value="fiction">Fiction</option>
+    </select>
+    <button id="button">Add Book</button>
+    <div id="books-list">
+        <div class="book" type="submit"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
